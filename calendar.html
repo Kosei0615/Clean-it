@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カレンダー - Calendar</title>
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <button onclick="goHome()" class="home-btn">🏠 ホーム / Home</button>
+            <h1>📅 カレンダー - Calendar</h1>
+        </div>
+        
+        <div class="calendar-section">
+            <div class="calendar-header">
+                <button onclick="previousMonth()" class="nav-btn">‹</button>
+                <h2 id="currentMonth"></h2>
+                <button onclick="nextMonth()" class="nav-btn">›</button>
+            </div>
+            
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Calendar will be generated here -->
+            </div>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="legend-color occupied"></span>
+                    <span>予約済み / Occupied</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color available"></span>
+                    <span>空室 / Available</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="calendar.js"></script>
+</body>
+</html>

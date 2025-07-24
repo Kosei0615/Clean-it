@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規登録 - Sign Up</title>
+    <link rel="stylesheet" href="light.css">
+</head>
+<body>
+    <div class="login-box">
+        <h1>🏨 新規登録 / Sign Up</h1>
+        
+        <form id="signupForm">
+            <input type="text" id="fullName" placeholder="氏名 / Full Name" required>
+            <input type="text" id="newUsername" placeholder="ユーザー名 / Username" required>
+            <input type="password" id="newPassword" placeholder="パスワード / Password" required>
+            <input type="password" id="confirmPassword" placeholder="パスワード確認 / Confirm Password" required>
+            <select id="newRole" required>
+                <option value="">役割を選択 / Select Role</option>
+                <option value="front-desk">🏪 フロントデスク</option>
+                <option value="cleaning">🧹 清掃スタッフ</option>
+            </select>
+            <button type="submit">登録 / Register</button>
+        </form>
+        
+        <p><a href="login.html">ログインに戻る / Back to Login</a></p>
+    </div>
+
+    <script src="ultra-signup.js"></script>
+</body>
+</html>

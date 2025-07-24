@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン - Login</title>
+    <link rel="stylesheet" href="light.css">
+</head>
+<body>
+    <div class="login-box">
+        <h1>🏨 ホテル管理システム</h1>
+        
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="ユーザー名 / Username" required>
+            <input type="password" id="password" placeholder="パスワード / Password" required>
+            <select id="role" required>
+                <option value="">役割を選択 / Select Role</option>
+                <option value="front-desk">🏪 フロントデスク</option>
+                <option value="cleaning">🧹 清掃スタッフ</option>
+            </select>
+            <button type="submit">ログイン / Login</button>
+        </form>
+        
+        <div class="quick-login">
+            <p>クイックログイン / Quick Login:</p>
+            <button type="button" onclick="quickLogin('front', 'desk123', 'front-desk')">フロントデスク</button>
+            <button type="button" onclick="quickLogin('clean', 'staff123', 'cleaning')">清掃スタッフ</button>
+        </div>
+        
+        <p><a href="signup.html">新規登録 / Sign Up</a></p>
+    </div>
+
+    <script src="ultra-login.js"></script>
+</body>
+</html>

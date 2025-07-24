@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フロントデスク</title>
+    <link rel="stylesheet" href="simple.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button onclick="window.location.href='index.html'">🏠 ホーム</button>
+            <h1>🏪 フロントデスク</h1>
+            <button onclick="showHistory()">📋 履歴</button>
+        </div>
+        
+        <div class="content">
+            <form id="guestForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>お客様名 / Guest Name</label>
+                        <input type="text" id="guestName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>チェックイン日 / Check-in</label>
+                        <input type="date" id="checkInDate" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>宿泊日数 / Days</label>
+                        <input type="number" id="stayDays" min="1" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>部屋番号 / Room</label>
+                        <select id="roomNumber" required>
+                            <option value="">部屋を選択</option>
+                            <optgroup label="1階">
+                                <option value="103">103号室</option>
+                                <option value="104">104号室</option>
+                            </optgroup>
+                            <optgroup label="2階">
+                                <option value="201">201号室</option>
+                                <option value="202">202号室</option>
+                                <option value="203">203号室</option>
+                            </optgroup>
+                            <optgroup label="3階">
+                                <option value="301">301号室</option>
+                                <option value="302">302号室</option>
+                                <option value="303">303号室</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="roomStatus" class="room-status" style="display: none;"></div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>地域 / Region</label>
+                        <select id="region" required>
+                            <option value="">選択</option>
+                            <option value="japan">🇯🇵 日本</option>
+                            <option value="other">🌏 海外</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>予約経路 / Source</label>
+                        <select id="bookingSource" required>
+                            <option value="">選択</option>
+                            <option value="direct">直接</option>
+                            <option value="online">オンライン</option>
+                            <option value="phone">電話</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="guest-counter">
+                    <h3>宿泊者数 / Guest Count</h3>
+                    <div class="counter-grid">
+                        <div class="counter-item">
+                            <label>👨 成人男性</label>
+                            <input type="number" id="adultMen" min="0" value="0">
+                        </div>
+                        <div class="counter-item">
+                            <label>👩 成人女性</label>
+                            <input type="number" id="adultWomen" min="0" value="0">
+                        </div>
+                        <div class="counter-item">
+                            <label>🧒 小学生</label>
+                            <input type="number" id="children" min="0" value="0">
+                        </div>
+                        <div class="counter-item">
+                            <label>👶 幼児</label>
+                            <input type="number" id="infants" min="0" value="0">
+                        </div>
+                    </div>
+                    <div class="total-display" id="totalGuests">合計: 0名</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>追加情報 / Notes</label>
+                    <textarea id="additionalInfo" rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">💾 保存 / Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="simple-front-desk.js"></script>
+</body>
+</html>

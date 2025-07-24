@@ -1,0 +1,511 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* Minimal Login */
+.login-box {
+    max-width: 350px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.login-box h1 {
+    text-align: center;
+    color: #2e7d32;
+    margin-bottom: 30px;
+}
+
+.login-box input, .login-box select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.login-box input:focus, .login-box select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+.login-box button:hover {
+    background: #45a049;
+}
+
+.quick-login {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.quick-login p {
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+.quick-login button {
+    width: 48%;
+    margin: 2px 1%;
+    padding: 8px;
+    font-size: 14px;
+}
+
+/* Hub */
+.hub {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.hub-header {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.user-info {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 12px;
+}
+
+.logout-btn {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+.hub h1 {
+    color: #4CAF50;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.option {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+}
+
+.option:hover {
+    background: #f8f9fa;
+}
+
+.option-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.option h3 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.option p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Container */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.header {
+    background: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.header button {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.header button:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.content {
+    padding: 25px;
+}
+
+/* Forms */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.guest-counter {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+
+.guest-counter h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.counter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.counter-item {
+    text-align: center;
+}
+
+.counter-item input {
+    text-align: center;
+    padding: 8px;
+}
+
+.total-display {
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+    background: #e8f5e8;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #45a049;
+}
+
+/* Room Status */
+.room-status {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.room-available {
+    background: #d4edda;
+    color: #155724;
+}
+
+.room-conflict {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Export Section */
+.export-section {
+    background: #f0f8ff;
+    border: 1px solid #b0d4f1;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.export-btn {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.export-btn:hover {
+    background: #1976D2;
+}
+
+.backup-status {
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.backup-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.backup-error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Calendar */
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 6px;
+}
+
+.nav-btn {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.nav-btn:hover {
+    background: #45a049;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.day {
+    background: white;
+    min-height: 50px;
+    padding: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.day:hover {
+    background: #f0f0f0;
+}
+
+.day.today {
+    background: #4CAF50;
+    color: white;
+}
+
+.day.occupied {
+    background: #ffcdd2;
+}
+
+.day-header {
+    background: #e9ecef;
+    padding: 8px 4px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+    color: #495057;
+}
+
+/* List Styles */
+.list-item {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-left: 4px solid #4CAF50;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.room-number {
+    font-size: 20px;
+    font-weight: bold;
+    color: #d32f2f;
+}
+
+.guest-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.item-details {
+    color: #666;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.foreign-guest {
+    background: #fff3cd;
+    border-left-color: #ffc107;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    background: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .options {
+        grid-template-columns: 1fr;
+    }
+    
+    .counter-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-login button {
+        width: 100%;
+        margin: 3px 0;
+    }
+}
