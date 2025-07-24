@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>フロントデスク</title>
-    <link rel="stylesheet" href="simple.css">
+    <link rel="stylesheet" href="light.css">
 </head>
 <body>
     <div class="container">
@@ -15,6 +15,16 @@
         </div>
         
         <div class="content">
+            <!-- Google Sheets Export Section -->
+            <div class="export-section">
+                <h3>📊 データバックアップ / Data Backup</h3>
+                <p>顧客データをGoogleスプレッドシートに自動保存 / Auto-save to Google Sheets</p>
+                <button class="export-btn" onclick="setupGoogleSheets()">🔗 Googleシート連携設定</button>
+                <button class="export-btn" onclick="exportToSheets()">📤 今すぐバックアップ</button>
+                <button class="export-btn" onclick="downloadBackup()">💾 ローカル保存</button>
+                <div id="backupStatus"></div>
+            </div>
+            
             <form id="guestForm">
                 <div class="form-row">
                     <div class="form-group">
@@ -80,20 +90,24 @@
                     <h3>宿泊者数 / Guest Count</h3>
                     <div class="counter-grid">
                         <div class="counter-item">
-                            <label>👨 成人男性</label>
+                            <label>👨 大人男性</label>
                             <input type="number" id="adultMen" min="0" value="0">
                         </div>
                         <div class="counter-item">
-                            <label>👩 成人女性</label>
+                            <label>👩 大人女性</label>
                             <input type="number" id="adultWomen" min="0" value="0">
                         </div>
                         <div class="counter-item">
-                            <label>🧒 小学生</label>
+                            <label>🧒 子供</label>
                             <input type="number" id="children" min="0" value="0">
                         </div>
                         <div class="counter-item">
-                            <label>👶 幼児</label>
-                            <input type="number" id="infants" min="0" value="0">
+                            <label>👶 幼児(食事有)</label>
+                            <input type="number" id="infantsWithMeal" min="0" value="0">
+                        </div>
+                        <div class="counter-item">
+                            <label>👶 幼児(食事無)</label>
+                            <input type="number" id="infantsNoMeal" min="0" value="0">
                         </div>
                     </div>
                     <div class="total-display" id="totalGuests">合計: 0名</div>
@@ -101,14 +115,14 @@
                 
                 <div class="form-group">
                     <label>追加情報 / Notes</label>
-                    <textarea id="additionalInfo" rows="3"></textarea>
+                    <textarea id="additionalInfo" rows="2"></textarea>
                 </div>
                 
-                <button type="submit" class="submit-btn">💾 保存 / Save</button>
+                <button type="submit" class="submit-btn">💾 保存してGoogleシートへ / Save & Sync to Google Sheets</button>
             </form>
         </div>
     </div>
 
-    <script src="simple-front-desk.js"></script>
+    <script src="ultra-light-front-desk.js"></script>
 </body>
 </html>

@@ -22,12 +22,17 @@ function loadRooms() {
                 ${guest ? `<span class="guest-name">${guest.guestName}様</span>` : '<span>空室</span>'}
             </div>
             ${guest ? `<div class="item-details">
-                👥 ${guest.totalGuests}名 | 
+                👥 ${guest.totalGuests}名 (👨${guest.adultMen || 0} 👩${guest.adultWomen || 0} 🧒${guest.children || 0} 👶${(guest.infantsWithMeal || 0) + (guest.infantsNoMeal || 0)}) | 
                 ${guest.region === 'japan' ? '🇯🇵 日本' : '🌏 海外'} |
-                ${guest.stayDays}泊滞在
+                ${guest.stayDays}泊滞在 | チェックイン: ${guest.checkInDate}
+                ${guest.additionalInfo ? `<br>📝 ${guest.additionalInfo}` : ''}
             </div>` : ''}
         </div>`;
     }).join('');
 }
 
-loadRooms();
+// Auto-refresh every 30 seconds
+setInterval(loadRooms, 30000);
+
+// Load on page load
+document.addEventListener('DOMContentLoaded', loadRooms);

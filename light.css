@@ -241,17 +241,30 @@ body {
 
 .counter-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 10px;
 }
 
 .counter-item {
     text-align: center;
+    background: white;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+.counter-item label {
+    font-size: 12px;
+    margin-bottom: 5px;
+    display: block;
 }
 
 .counter-item input {
     text-align: center;
-    padding: 8px;
+    padding: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #ddd;
 }
 
 .total-display {
@@ -341,6 +354,11 @@ body {
     color: #721c24;
 }
 
+.backup-info {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
 /* Calendar */
 .calendar-nav {
     display: flex;
@@ -403,6 +421,26 @@ body {
     font-weight: bold;
     font-size: 11px;
     color: #495057;
+}
+
+.day-number {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.day-info {
+    font-size: 9px;
+    line-height: 1.2;
+}
+
+.room-info {
+    color: #d32f2f;
+    font-weight: bold;
+}
+
+.guest-count {
+    color: #1976d2;
+    font-weight: bold;
 }
 
 /* List Styles */
@@ -490,22 +528,234 @@ body {
     padding: 20px;
 }
 
-/* Responsive */
+/* Calendar specific improvements */
+/* Calendar legend */
+.calendar-legend {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+    border: 1px solid #e0e0e0;
+}
+
+.calendar-legend h3 {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 16px;
+    text-align: center;
+}
+
+.legend-items {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.legend-color.today {
+    background: #4CAF50;
+}
+
+.legend-color.occupied {
+    background: #ffcdd2;
+}
+
+.legend-color.available {
+    background: white;
+}
+
+.legend-color.foreign {
+    background: #fff3cd;
+}
+
+/* Calendar statistics */
+.calendar-stats {
+    background: #f0f8ff;
+    border: 1px solid #b0d4f1;
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.calendar-stats h3 {
+    color: #1976d2;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.stat-item {
+    text-align: center;
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1976d2;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.2;
+}
+
+/* Enhanced day styles */
+.day.empty {
+    background: #f8f9fa;
+    cursor: default;
+}
+
+.day-info {
+    margin-top: 2px;
+}
+
+.room-count {
+    font-size: 8px;
+    color: #d32f2f;
+    font-weight: bold;
+}
+
+.guest-count {
+    font-size: 8px;
+    color: #1976d2;
+    font-weight: bold;
+}
+
+.foreign-count {
+    font-size: 8px;
+    color: #ff9800;
+    font-weight: bold;
+}
+
+/* Hover effects */
+.day.occupied:hover {
+    background: #ffb3ba !important;
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+}
+
+.day:not(.empty):not(.occupied):hover {
+    background: #e8f5e8 !important;
+}
+
+.day.occupied.foreign {
+    background: #fff3cd !important;
+    border: 2px solid #ffc107;
+}
+
+/* Loading state */
+.calendar-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 18px;
+    color: #666;
+}
+
+/* Mobile responsiveness for calendar */
 @media (max-width: 768px) {
-    .form-row {
-        grid-template-columns: 1fr;
+    .calendar {
+        font-size: 10px;
     }
     
-    .options {
-        grid-template-columns: 1fr;
+    .day {
+        min-height: 40px;
+        padding: 2px;
     }
     
-    .counter-grid {
-        grid-template-columns: 1fr;
+    .day-number {
+        font-size: 11px;
     }
     
-    .quick-login button {
-        width: 100%;
-        margin: 3px 0;
+    .day-info {
+        font-size: 7px;
     }
+    
+    .room-count, .guest-count, .foreign-count {
+        font-size: 7px;
+    }
+    
+    .legend-items {
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .legend-item {
+        font-size: 12px;
+    }
+    
+    .legend-color {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .stat-number {
+        font-size: 20px;
+    }
+    
+    .stat-label {
+        font-size: 11px;
+    }
+    
+    .calendar-nav h2 {
+        font-size: 18px;
+    }
+}
+
+/* Calendar navigation improvements */
+.calendar-nav h2 {
+    color: #4CAF50;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.nav-btn {
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+    transform: scale(1.1);
+}
+
+.nav-btn:active {
+    transform: scale(0.95);
 }
