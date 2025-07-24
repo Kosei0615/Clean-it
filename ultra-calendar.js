@@ -62,12 +62,24 @@ function renderCalendar() {
     for (let day = 1; day <= daysInMonth; day++) {
         const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         
-        // Find guests for this day
+        // Find guests for this day - INCLUDING check-in and check-out days properly
         const dayGuests = guests.filter(guest => {
             const checkIn = new Date(guest.checkInDate);
             const checkOut = new Date(checkIn.getTime() + guest.stayDays * 86400000);
             const currentDay = new Date(dateStr);
+            
+            // Include check-in day but exclude check-out day
             return currentDay >= checkIn && currentDay < checkOut;
+        });
+        
+        // Find guests checking in today
+        const checkingInToday = guests.filter(guest => guest.checkInDate === dateStr);
+        
+        // Find guests checking out today
+        const checkingOutToday = guests.filter(guest => {
+            const checkIn = new Date(guest.checkInDate);
+            const checkOut = new Date(checkIn.getTime() + guest.stayDays * 86400000);
+            return checkOut.toISOString().split('T')[0] === dateStr;
         });
         
         const dayElement = document.createElement('div');
@@ -87,28 +99,36 @@ function renderCalendar() {
             }
         }
         
-        // Create day content
+        // Create day content with room numbers visible
         let dayContent = `<div class="day-number">${day}</div>`;
         
         if (dayGuests.length > 0) {
             const totalGuests = dayGuests.reduce((sum, g) => sum + (g.totalGuests || 0), 0);
-            const roomCount = dayGuests.length;
+            const roomNumbers = dayGuests.map(g => g.roomNumber).sort().join(',');
             const foreignGuests = dayGuests.filter(g => g.region === 'other').length;
             
             dayContent += `<div class="day-info">
-                <div class="room-count">🏠 ${roomCount}室</div>
+                <div class="room-numbers">🏠 ${roomNumbers}</div>
                 <div class="guest-count">👥 ${totalGuests}名</div>
                 ${foreignGuests > 0 ? `<div class="foreign-count">🌏 ${foreignGuests}</div>` : ''}
             </div>`;
+            
+            // Add check-in/out indicators
+            if (checkingInToday.length > 0) {
+                dayContent += `<div class="checkin-indicator">📥 IN</div>`;
+            }
+            if (checkingOutToday.length > 0) {
+                dayContent += `<div class="checkout-indicator">📤 OUT</div>`;
+            }
         }
         
         dayElement.innerHTML = dayContent;
         
         // Add click event for day details
-        if (dayGuests.length > 0) {
+        if (dayGuests.length > 0 || checkingInToday.length > 0 || checkingOutToday.length > 0) {
             dayElement.style.cursor = 'pointer';
-            dayElement.title = createTooltip(dayGuests);
-            dayElement.onclick = () => showDayDetails(dateStr, dayGuests);
+            dayElement.title = createTooltip(dayGuests, checkingInToday, checkingOutToday);
+            dayElement.onclick = () => showDayDetails(dateStr, dayGuests, checkingInToday, checkingOutToday);
         }
         
         grid.appendChild(dayElement);
@@ -118,33 +138,88 @@ function renderCalendar() {
     updateMonthStats(year, month, guests);
 }
 
-function createTooltip(dayGuests) {
-    return dayGuests.map(guest => {
-        const infantTotal = (guest.infantsWithMeal || 0) + (guest.infantsNoMeal || 0);
-        return `${guest.roomNumber}号室: ${guest.guestName}様\n` +
-               `👥 ${guest.totalGuests}名 (👨${guest.adultMen || 0} 👩${guest.adultWomen || 0} 🧒${guest.children || 0} 👶${infantTotal})\n` +
-               `${guest.region === 'japan' ? '🇯🇵 日本' : '🌏 海外'} | ${guest.stayDays}泊\n` +
-               `チェックイン: ${guest.checkInDate}`;
-    }).join('\n\n');
+function createTooltip(dayGuests, checkingIn, checkingOut) {
+    let tooltip = '';
+    
+    if (checkingIn.length > 0) {
+        tooltip += '📥 チェックイン:\n';
+        tooltip += checkingIn.map(guest => {
+            const infantTotal = (guest.infantsWithMeal || 0) + (guest.infantsNoMeal || 0);
+            return `${guest.roomNumber}号室: ${guest.guestName}様 (${guest.totalGuests}名)`;
+        }).join('\n') + '\n\n';
+    }
+    
+    if (dayGuests.length > 0) {
+        tooltip += '🏠 滞在中:\n';
+        tooltip += dayGuests.map(guest => {
+            const infantTotal = (guest.infantsWithMeal || 0) + (guest.infantsNoMeal || 0);
+            const checkIn = new Date(guest.checkInDate);
+            const dayNumber = Math.floor((new Date() - checkIn) / (1000 * 60 * 60 * 24)) + 1;
+            return `${guest.roomNumber}号室: ${guest.guestName}様\n` +
+                   `👥 ${guest.totalGuests}名 (👨${guest.adultMen || 0} 👩${guest.adultWomen || 0} 🧒${guest.children || 0} 👶${infantTotal})\n` +
+                   `${guest.region === 'japan' ? '🇯🇵 日本' : '🌏 海外'} | ${guest.stayDays}泊滞在`;
+        }).join('\n\n') + '\n\n';
+    }
+    
+    if (checkingOut.length > 0) {
+        tooltip += '📤 チェックアウト:\n';
+        tooltip += checkingOut.map(guest => {
+            return `${guest.roomNumber}号室: ${guest.guestName}様 (${guest.totalGuests}名)`;
+        }).join('\n');
+    }
+    
+    return tooltip.trim();
 }
 
-function showDayDetails(dateStr, dayGuests) {
-    const details = dayGuests.map(guest => {
-        const infantTotal = (guest.infantsWithMeal || 0) + (guest.infantsNoMeal || 0);
-        return `🏠 ${guest.roomNumber}号室: ${guest.guestName}様\n` +
-               `👥 合計 ${guest.totalGuests}名\n` +
-               `   👨 大人男性: ${guest.adultMen || 0}名\n` +
-               `   👩 大人女性: ${guest.adultWomen || 0}名\n` +
-               `   🧒 子供: ${guest.children || 0}名\n` +
-               `   👶 幼児(食事有): ${guest.infantsWithMeal || 0}名\n` +
-               `   👶 幼児(食事無): ${guest.infantsNoMeal || 0}名\n` +
-               `🌍 地域: ${guest.region === 'japan' ? '日本' : '海外'}\n` +
-               `📅 ${guest.stayDays}泊滞在\n` +
-               `🎯 予約経路: ${guest.bookingSource}\n` +
-               `📝 チェックイン: ${guest.checkInDate}\n` +
-               `👤 登録者: ${guest.createdBy}\n` +
-               `${guest.additionalInfo ? `💬 備考: ${guest.additionalInfo}` : ''}`;
-    }).join('\n\n━━━━━━━━━━━━━━━━━━━━━━\n\n');
+function showDayDetails(dateStr, dayGuests, checkingIn, checkingOut) {
+    let details = '';
+    
+    if (checkingIn.length > 0) {
+        details += '📥 チェックイン予定:\n';
+        details += checkingIn.map(guest => {
+            const infantTotal = (guest.infantsWithMeal || 0) + (guest.infantsNoMeal || 0);
+            return `🏠 ${guest.roomNumber}号室: ${guest.guestName}様\n` +
+                   `👥 合計 ${guest.totalGuests}名 (👨${guest.adultMen || 0} 👩${guest.adultWomen || 0} 🧒${guest.children || 0} 👶${infantTotal})\n` +
+                   `🌍 ${guest.region === 'japan' ? '🇯🇵 日本' : '🌏 海外'} | ${guest.stayDays}泊滞在\n` +
+                   `🎯 ${guest.bookingSource} | 👤 ${guest.createdBy}\n` +
+                   `${guest.additionalInfo ? `💬 ${guest.additionalInfo}` : ''}`;
+        }).join('\n\n') + '\n\n━━━━━━━━━━━━━━━━━━━━━━\n\n';
+    }
+    
+    if (dayGuests.length > 0) {
+        details += '🏠 滞在中:\n';
+        details += dayGuests.map(guest => {
+            const infantTotal = (guest.infantsWithMeal || 0) + (guest.infantsNoMeal || 0);
+            const checkIn = new Date(guest.checkInDate);
+            const currentDate = new Date(dateStr);
+            const dayNumber = Math.floor((currentDate - checkIn) / (1000 * 60 * 60 * 24)) + 1;
+            
+            return `🏠 ${guest.roomNumber}号室: ${guest.guestName}様\n` +
+                   `👥 合計 ${guest.totalGuests}名\n` +
+                   `   👨 大人男性: ${guest.adultMen || 0}名\n` +
+                   `   👩 大人女性: ${guest.adultWomen || 0}名\n` +
+                   `   🧒 子供: ${guest.children || 0}名\n` +
+                   `   👶 幼児(食事有): ${guest.infantsWithMeal || 0}名\n` +
+                   `   👶 幼児(食事無): ${guest.infantsNoMeal || 0}名\n` +
+                   `🌍 地域: ${guest.region === 'japan' ? '日本' : '海外'}\n` +
+                   `📅 ${guest.stayDays}泊滞在 (${dayNumber}日目)\n` +
+                   `🎯 予約経路: ${guest.bookingSource}\n` +
+                   `📝 チェックイン: ${guest.checkInDate}\n` +
+                   `👤 登録者: ${guest.createdBy}\n` +
+                   `${guest.additionalInfo ? `💬 備考: ${guest.additionalInfo}` : ''}`;
+        }).join('\n\n━━━━━━━━━━━━━━━━━━━━━━\n\n') + '\n';
+    }
+    
+    if (checkingOut.length > 0) {
+        details += '📤 チェックアウト予定:\n';
+        details += checkingOut.map(guest => {
+            const infantTotal = (guest.infantsWithMeal || 0) + (guest.infantsNoMeal || 0);
+            return `🏠 ${guest.roomNumber}号室: ${guest.guestName}様\n` +
+                   `👥 合計 ${guest.totalGuests}名 (👨${guest.adultMen || 0} 👩${guest.adultWomen || 0} 🧒${guest.children || 0} 👶${infantTotal})\n` +
+                   `🌍 ${guest.region === 'japan' ? '🇯🇵 日本' : '🌏 海外'} | ${guest.stayDays}泊滞在完了\n` +
+                   `🎯 ${guest.bookingSource} | 👤 ${guest.createdBy}`;
+        }).join('\n\n');
+    }
     
     const formattedDate = new Date(dateStr).toLocaleDateString('ja-JP', {
         year: 'numeric',
@@ -153,7 +228,8 @@ function showDayDetails(dateStr, dayGuests) {
         weekday: 'long'
     });
     
-    alert(`📅 ${formattedDate}の予約詳細\n(${dayGuests.length}件の予約)\n\n${details}`);
+    const totalEvents = checkingIn.length + dayGuests.length + checkingOut.length;
+    alert(`📅 ${formattedDate}の詳細\n(${totalEvents}件)\n\n${details}`);
 }
 
 function updateMonthStats(year, month, guests) {
@@ -260,22 +336,26 @@ function exportCalendarMonth() {
     }
     
     const csv = [
-        '日付,部屋番号,顧客名,宿泊者数,大人男性,大人女性,子供,幼児(食事有),幼児(食事無),地域,宿泊日数,予約経路,備考',
-        ...monthGuests.map(g => [
-            g.checkInDate,
-            g.roomNumber,
-            g.guestName,
-            g.totalGuests,
-            g.adultMen || 0,
-            g.adultWomen || 0,
-            g.children || 0,
-            g.infantsWithMeal || 0,
-            g.infantsNoMeal || 0,
-            g.region === 'japan' ? '日本' : '海外',
-            g.stayDays,
-            g.bookingSource,
-            (g.additionalInfo || '').replace(/,/g, '；')
-        ].join(','))
+        '日付,部屋番号,顧客名,宿泊者数,大人男性,大人女性,子供,幼児(食事有),幼児(食事無),地域,宿泊日数,チェックアウト日,予約経路,備考',
+        ...monthGuests.map(g => {
+            const checkOut = new Date(new Date(g.checkInDate).getTime() + g.stayDays * 86400000);
+            return [
+                g.checkInDate,
+                g.roomNumber,
+                g.guestName,
+                g.totalGuests,
+                g.adultMen || 0,
+                g.adultWomen || 0,
+                g.children || 0,
+                g.infantsWithMeal || 0,
+                g.infantsNoMeal || 0,
+                g.region === 'japan' ? '日本' : '海外',
+                g.stayDays,
+                checkOut.toISOString().split('T')[0],
+                g.bookingSource,
+                (g.additionalInfo || '').replace(/,/g, '；')
+            ].join(',');
+        })
     ].join('\n');
     
     const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });

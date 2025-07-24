@@ -11,11 +11,32 @@
         <div class="header">
             <button onclick="window.location.href='index.html'">🏠 ホーム</button>
             <h1>🧹 清掃管理</h1>
-            <button onclick="location.reload()">🔄 更新</button>
+            <button onclick="exportCleaningReport()">📥 レポート出力</button>
         </div>
         
         <div class="content">
-            <h2>本日の客室状況 / Today's Room Status</h2>
+            <!-- Date Selection Section -->
+            <div class="date-selector">
+                <h3>📅 日付選択 / Date Selection</h3>
+                <div class="date-controls">
+                    <button class="date-nav-btn" onclick="changeDate(-1)">‹ 前日</button>
+                    <input type="date" id="selectedDate" onchange="loadRoomsForDate()">
+                    <button class="date-nav-btn" onclick="changeDate(1)">翌日 ›</button>
+                    <button class="today-btn" onclick="goToToday()">📍 今日</button>
+                </div>
+                <div class="selected-date-info">
+                    <span id="selectedDateDisplay">今日の情報を表示中</span>
+                </div>
+            </div>
+            
+            <!-- Quick Date Buttons -->
+            <div class="quick-dates">
+                <button class="quick-date-btn" onclick="selectQuickDate(-1)">昨日</button>
+                <button class="quick-date-btn active" onclick="goToToday()">今日</button>
+                <button class="quick-date-btn" onclick="selectQuickDate(1)">明日</button>
+                <button class="quick-date-btn" onclick="selectQuickDate(2)">明後日</button>
+            </div>
+            
             <div id="roomsList">
                 <!-- Rooms will be loaded here -->
             </div>

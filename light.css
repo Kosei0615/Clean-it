@@ -759,3 +759,504 @@ body {
 .nav-btn:active {
     transform: scale(0.95);
 }
+
+/* Enhanced Cleaning Staff Styles - ADD TO END OF light.css */
+
+/* Cleaning Summary */
+.cleaning-summary {
+    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+    border: 1px solid #b0d4f1;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.cleaning-summary h3 {
+    text-align: center;
+    color: #1976d2;
+    margin-bottom: 15px;
+}
+
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+}
+
+.summary-item {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.summary-item.check-in {
+    border-color: #4caf50;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+}
+
+.summary-item.check-out {
+    border-color: #ff9800;
+    box-shadow: 0 2px 8px rgba(255, 152, 0, 0.2);
+}
+
+.summary-item.occupied {
+    border-color: #f44336;
+    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.2);
+}
+
+.summary-item.available {
+    border-color: #2196f3;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+}
+
+.summary-number {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.summary-label {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.2;
+}
+
+/* Enhanced Room Cards */
+.room-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.room-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.room-card.checking-in {
+    border-color: #4caf50;
+    background: linear-gradient(135deg, #f1f8e9, #ffffff);
+}
+
+.room-card.checking-out {
+    border-color: #ff9800;
+    background: linear-gradient(135deg, #fff8e1, #ffffff);
+}
+
+.room-card.staying {
+    border-color: #2196f3;
+    background: linear-gradient(135deg, #e3f2fd, #ffffff);
+}
+
+.room-card.available {
+    border-color: #9e9e9e;
+    background: linear-gradient(135deg, #f5f5f5, #ffffff);
+}
+
+.room-card.foreign-guest {
+    border-color: #ff5722;
+    background: linear-gradient(135deg, #fff3e0, #ffffff);
+    position: relative;
+}
+
+.room-card.foreign-guest::before {
+    content: "🌏";
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+}
+
+.room-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.room-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.room-number {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1976d2;
+}
+
+.room-status {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+}
+
+.guest-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.guest-details {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #4caf50;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 5px 0;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
+}
+
+.detail-value {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+
+.detail-breakdown {
+    background: #e8f5e8;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #2e7d32;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.empty-room-info {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Enhanced Calendar Styles */
+.room-numbers {
+    font-size: 8px;
+    color: #1976d2;
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+.checkin-indicator {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    background: #4caf50;
+    color: white;
+    font-size: 6px;
+    padding: 1px 3px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.checkout-indicator {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #ff9800;
+    color: white;
+    font-size: 6px;
+    padding: 1px 3px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.day {
+    position: relative;
+}
+
+/* Mobile Responsiveness for Cleaning */
+@media (max-width: 768px) {
+    .summary-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .summary-number {
+        font-size: 22px;
+    }
+    
+    .room-card {
+        padding: 15px;
+    }
+    
+    .room-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+    }
+    
+    .room-numbers {
+        font-size: 7px;
+    }
+    
+    .checkin-indicator,
+    .checkout-indicator {
+        font-size: 5px;
+        padding: 1px 2px;
+    }
+}
+
+/* Enhanced Date Selection Styles - ADD TO END OF light.css */
+
+/* Date Selector */
+.date-selector {
+    background: linear-gradient(135deg, #e8f5e8, #f0f8ff);
+    border: 2px solid #4caf50;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.date-selector h3 {
+    color: #2e7d32;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.date-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.date-nav-btn, .today-btn {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.date-nav-btn:hover, .today-btn:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
+.today-btn {
+    background: #2196f3;
+}
+
+.today-btn:hover {
+    background: #1976d2;
+}
+
+#selectedDate {
+    padding: 8px 12px;
+    border: 2px solid #4caf50;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    background: white;
+}
+
+.selected-date-info {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    font-size: 14px;
+    color: #2e7d32;
+}
+
+/* Quick Date Buttons */
+.quick-dates {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.quick-date-btn {
+    background: white;
+    border: 2px solid #e0e0e0;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #666;
+}
+
+.quick-date-btn:hover {
+    border-color: #4caf50;
+    color: #4caf50;
+    transform: translateY(-2px);
+}
+
+.quick-date-btn.active {
+    background: #4caf50;
+    border-color: #4caf50;
+    color: white;
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Date Status Indicator */
+.date-status {
+    margin-bottom: 15px;
+}
+
+.date-indicator {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Historical and Future Notes */
+.historical-note, .future-note {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #856404;
+}
+
+.future-note {
+    background: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+/* Enhanced Room Cards for Date Context */
+.room-card.past-date {
+    opacity: 0.8;
+    background: linear-gradient(135deg, #f5f5f5, #ffffff);
+}
+
+.room-card.future-date {
+    background: linear-gradient(135deg, #e3f2fd, #ffffff);
+    border-style: dashed;
+}
+
+.room-card.past-date .room-header {
+    border-bottom-color: #9e9e9e;
+}
+
+.room-card.future-date .room-header {
+    border-bottom-color: #2196f3;
+}
+
+/* Stay Day Indicator */
+.detail-row .detail-value {
+    position: relative;
+}
+
+.detail-row:has(.detail-label:contains("滞在日数")) .detail-value {
+    background: #e8f5e8;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+/* Mobile Responsiveness for Date Selection */
+@media (max-width: 768px) {
+    .date-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .date-nav-btn, .today-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+    
+    #selectedDate {
+        font-size: 18px;
+        padding: 10px;
+        width: 200px;
+    }
+    
+    .quick-dates {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    
+    .quick-date-btn {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .selected-date-info {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+    
+    .date-selector {
+        padding: 15px;
+    }
+    
+    .date-selector h3 {
+        font-size: 16px;
+    }
+}
+
+/* Animation for room card transitions */
+.room-card {
+    transition: all 0.5s ease;
+}
+
+.room-card.checking-in {
+    animation: pulse-green 2s infinite;
+}
+
+.room-card.checking-out {
+    animation: pulse-orange 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    50% { box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); }
+    100% { box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+}
+
+@keyframes pulse-orange {
+    0% { box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    50% { box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3); }
+    100% { box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+}
