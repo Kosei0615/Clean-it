@@ -11,7 +11,10 @@
         <div class="header">
             <button onclick="window.location.href='index.html'">🏠 ホーム</button>
             <h1>🏪 フロントデスク</h1>
-            <button onclick="showHistory()">📋 履歴</button>
+            <div class="header-buttons">
+                <button onclick="window.location.href='customer-list.html'">👥 顧客リスト</button>
+                <button onclick="showHistory()">📋 履歴</button>
+            </div>
         </div>
         
         <div class="content">
@@ -120,6 +123,12 @@
                 
                 <button type="submit" class="submit-btn">💾 保存してGoogleシートへ / Save & Sync to Google Sheets</button>
             </form>
+            
+            <!-- Success message for after saving -->
+            <div id="successMessage" style="display: none;" class="success-banner">
+                <p>✅ 予約が保存されました！</p>
+                <button onclick="window.location.href='customer-list.html'" class="view-customers-btn">👥 顧客リストで確認</button>
+            </div>
         </div>
     </div>
 

@@ -109,14 +109,17 @@ document.addEventListener('DOMContentLoaded', function() {
             if (sheetsUrl) {
                 exportToSheets(data).then(() => {
                     showStatus('✅ 保存＆Googleシート同期完了! / Saved & Synced!', 'success');
-                    alert(`✅ 予約完了！Googleシートに保存されました\n${data.guestName}様 - ${data.roomNumber}号室`);
+                    // alert(`✅ 予約完了！Googleシートに保存されました\n${data.guestName}様 - ${data.roomNumber}号室`);
+                    showSuccessMessage(data);
                 }).catch(() => {
                     showStatus('⚠️ ローカル保存OK、Googleシート同期失敗', 'error');
-                    alert(`✅ 予約完了！(ローカル保存のみ)\n${data.guestName}様 - ${data.roomNumber}号室`);
+                    // alert(`✅ 予約完了！(ローカル保存のみ)\n${data.guestName}様 - ${data.roomNumber}号室`);
+                    showSuccessMessage(data);
                 });
             } else {
                 showStatus('✅ ローカル保存完了 / Saved Locally', 'success');
-                alert(`✅ 予約完了！\n${data.guestName}様 - ${data.roomNumber}号室\n\nGoogleシート連携を設定すると自動バックアップされます`);
+                // alert(`✅ 予約完了！\n${data.guestName}様 - ${data.roomNumber}号室\n\nGoogleシート連携を設定すると自動バックアップされます`);
+                showSuccessMessage(data);
             }
             
             // Reset form
@@ -298,4 +301,38 @@ function showHistory() {
         .join('\n');
     
     alert(`📋 最近の予約 (${guests.length}件):\n\n${recent}`);
+}
+
+// Success message functions
+function showSuccessMessage(guestData) {
+    const successDiv = document.getElementById('successMessage');
+    if (successDiv) {
+        successDiv.style.display = 'block';
+        successDiv.innerHTML = `
+            <div class="success-content">
+                <h3>✅ 予約完了！</h3>
+                <p><strong>${guestData.guestName}様</strong> - ${guestData.roomNumber}号室</p>
+                <p>📅 ${guestData.checkInDate} 〜 ${guestData.stayDays}泊</p>
+                <p>👥 ${guestData.totalGuests}名様</p>
+                <div class="success-actions">
+                    <button onclick="window.location.href='customer-list.html'" class="view-customers-btn">
+                        👥 顧客リストで確認
+                    </button>
+                    <button onclick="hideSuccessMessage()" class="continue-btn">
+                        ➕ 続けて登録
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        // Auto-hide after 10 seconds
+        setTimeout(hideSuccessMessage, 10000);
+    }
+}
+
+function hideSuccessMessage() {
+    const successDiv = document.getElementById('successMessage');
+    if (successDiv) {
+        successDiv.style.display = 'none';
+    }
 }

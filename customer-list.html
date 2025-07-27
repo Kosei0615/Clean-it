@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>顧客リスト - Customer List</title>
+    <link rel="stylesheet" href="light.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button onclick="window.location.href='index.html'">🏠 ホーム</button>
+            <h1>👥 顧客リスト</h1>
+            <button onclick="exportCustomerList()">📥 エクスポート</button>
+        </div>
+        
+        <div class="content">
+            <!-- Search and Filter Section -->
+            <div class="filter-section">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="顧客名、部屋番号で検索 / Search by name or room" oninput="filterCustomers()">
+                    <button onclick="clearSearch()">🗑️ クリア</button>
+                </div>
+                
+                <div class="filter-options">
+                    <select id="regionFilter" onchange="filterCustomers()">
+                        <option value="">全地域 / All Regions</option>
+                        <option value="japan">🇯🇵 日本</option>
+                        <option value="other">🌏 海外</option>
+                    </select>
+                    
+                    <select id="dateFilter" onchange="filterCustomers()">
+                        <option value="">全期間 / All Dates</option>
+                        <option value="today">今日 / Today</option>
+                        <option value="thisWeek">今週 / This Week</option>
+                        <option value="thisMonth">今月 / This Month</option>
+                        <option value="future">未来 / Future</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Statistics Summary -->
+            <div class="stats-summary" id="customerStats">
+                <!-- Stats will be populated here -->
+            </div>
+            
+            <!-- Customer List -->
+            <div class="customer-list" id="customerList">
+                <!-- Customers will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Details/Edit Modal -->
+    <div id="customerModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">顧客詳細 / Customer Details</h2>
+                <button onclick="closeCustomerModal()" class="close-btn">×</button>
+            </div>
+            <div class="modal-body" id="customerModalBody">
+                <!-- Customer details/edit form will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="customer-list.js"></script>
+</body>
+</html>
